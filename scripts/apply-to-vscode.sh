@@ -25,27 +25,48 @@ for ext in "$HOME"/.vscode/extensions/miguelsolorio.symbols-*; do
   found=1
   echo "applying to: $ext"
 
-  # 1. copy custom SVGs
+  # layout guard — if a future Symbols release moves these, skip loudly instead
+  # of corrupting something or failing cryptically mid-copy.
+  if [ ! -d "$ext/src/icons/folders" ] || [ ! -f "$ext/src/symbol-icon-theme.json" ]; then
+    echo "  !! unexpected extension layout (icons/folders or theme json missing) — skipping" >&2
+    continue
+  fi
+
+  # 1. copy custom SVGs (each must exist in the fork)
   for n in "${CUSTOM[@]}"; do
-    cp "$FORK_DIR/src/icons/folders/$n.svg" "$ext/src/icons/folders/$n.svg"
+    svg="$FORK_DIR/src/icons/folders/$n.svg"
+    [ -f "$svg" ] || { echo "  !! fork SVG missing: $svg" >&2; exit 1; }
+    cp "$svg" "$ext/src/icons/folders/$n.svg"
   done
 
-  # 2. insert iconDefinitions into the source theme (idempotent; keeps a pristine .orig)
+  # 2. insert iconDefinitions into the source theme (idempotent; keeps a pristine .orig).
+  #    Parse-and-write (not text/regex) so it's robust to upstream reformatting,
+  #    write to a temp file, re-validate, then swap in — original is never left
+  #    half-written, and the .orig backup remains for manual restore.
   theme="$ext/src/symbol-icon-theme.json"
   [ -f "$theme.orig" ] || cp "$theme" "$theme.orig"
-  FORK_DIR="$FORK_DIR" THEME="$theme" python3 - "${CUSTOM[@]}" <<'PY'
-import os, re, sys
+  THEME="$theme" python3 - "${CUSTOM[@]}" <<'PY'
+import os, json, sys, shutil
 custom = sys.argv[1:]
 theme = os.environ["THEME"]
-txt = open(theme).read()
-missing = [n for n in custom if f'"{n}"' not in txt]
+try:
+    data = json.load(open(theme))
+except Exception as e:
+    sys.exit(f"  !! theme is not valid JSON ({e}); aborting, nothing changed")
+defs = data.setdefault("iconDefinitions", {})
+missing = [n for n in custom if n not in defs]
 if not missing:
     print("  defs already present")
 else:
-    block = "".join(f'\t\t"{n}": {{ "iconPath": "./icons/folders/{n}.svg" }},\n' for n in missing)
-    txt2 = re.sub(r'("iconDefinitions"\s*:\s*\{\s*\n)', r'\1' + block, txt, count=1)
-    assert txt2 != txt, "iconDefinitions anchor not found"
-    open(theme, "w").write(txt2)
+    for n in missing:
+        defs[n] = {"iconPath": f"./icons/folders/{n}.svg"}
+    tmp = theme + ".tmp"
+    json.dump(data, open(tmp, "w"), indent=2)
+    try:
+        json.load(open(tmp))                      # re-validate before swapping in
+    except Exception as e:
+        os.remove(tmp); sys.exit(f"  !! patched theme failed validation ({e}); original untouched")
+    shutil.move(tmp, theme)
     print("  inserted:", ", ".join(missing))
 PY
 
