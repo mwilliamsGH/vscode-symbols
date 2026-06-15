@@ -49,12 +49,13 @@ else:
     print("  inserted:", ", ".join(missing))
 PY
 
-  # 3. regenerate the live + backup theme from the patched source so the new
-  #    defs are present immediately (the extension re-applies folder associations
-  #    from settings on activate; source == backup means no extra resync prompt)
-  cp "$theme" "$ext/src/symbol-icon-theme.modified.json"
-  cp "$theme" "$ext/src/symbol-icon-theme.bkp.json"
+  # 3. clear the generated theme files. The extension regenerates them from the
+  #    patched source AND re-injects your per-workspace folder associations from
+  #    settings on its next activate — do NOT pre-write them here, or the version
+  #    without associations sticks until a reload and the icons look "missing".
+  rm -f "$ext/src/symbol-icon-theme.modified.json" "$ext/src/symbol-icon-theme.bkp.json"
 done
 
 [ "$found" = 1 ] || { echo "No Symbols install found under ~/.vscode/extensions/"; exit 1; }
-echo "Done. Reload the VS Code window to see the icons."
+echo "Done. RELOAD the VS Code window (Cmd+Shift+P -> Reload Window) — required for"
+echo "the extension to wire the icons to your folder associations."
