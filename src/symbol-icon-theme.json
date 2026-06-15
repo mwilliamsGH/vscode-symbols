@@ -1,5 +1,11 @@
 {
 	"iconDefinitions": {
+		"folder-brain": { "iconPath": "./icons/folders/folder-brain.svg" },
+		"folder-systems": { "iconPath": "./icons/folders/folder-systems.svg" },
+		"folder-agents": { "iconPath": "./icons/folders/folder-agents.svg" },
+		"folder-lab": { "iconPath": "./icons/folders/folder-lab.svg" },
+		"folder-notes": { "iconPath": "./icons/folders/folder-notes.svg" },
+		"folder-archives": { "iconPath": "./icons/folders/folder-archives.svg" },
 		"folder": { "iconPath": "./icons/folders/folder.svg" },
 		"folder-assets": { "iconPath": "./icons/folders/folder-assets.svg" },
 		"folder-blue": { "iconPath": "./icons/folders/folder-blue.svg" },
