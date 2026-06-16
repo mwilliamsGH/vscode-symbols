@@ -1,17 +1,16 @@
 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <g fill="#EC4899">
-    <circle cx="9" cy="8.6" r="3.3"/>
-    <circle cx="13.6" cy="8" r="3.6"/>
-    <circle cx="7.2" cy="12" r="3.3"/>
-    <circle cx="15.4" cy="12" r="3.6"/>
-    <circle cx="10" cy="12.2" r="3.8"/>
-    <circle cx="12.8" cy="13.8" r="3.6"/>
-    <circle cx="11" cy="16.2" r="3.1"/>
-  </g>
-  <g stroke="#FBCFE8" stroke-width="1.1" fill="none" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M11.7 5.6 C11.7 9 10.3 10 11.7 12 C13 14 11.4 15 11.7 18.4"/>
-    <path d="M7.8 9 C9.5 9.6 9.5 11.1 7.8 11.7"/>
-    <path d="M16.2 9.5 C14.4 10.1 14.4 11.7 16.2 12.3"/>
-    <path d="M9.4 14.8 C10.8 15.2 10.8 16.4 9.4 16.9"/>
+  <rect x="1" y="1" width="22" height="22" rx="6" fill="#EC4899"/>
+  <g transform="translate(4,4) scale(0.667)">
+    <g fill="#fff">
+      <circle cx="9" cy="8.6" r="3.3"/><circle cx="13.6" cy="8" r="3.6"/>
+      <circle cx="7.2" cy="12" r="3.3"/><circle cx="15.4" cy="12" r="3.6"/>
+      <circle cx="10" cy="12.2" r="3.8"/><circle cx="12.8" cy="13.8" r="3.6"/>
+      <circle cx="11" cy="16.2" r="3.1"/>
+    </g>
+    <g stroke="#EC4899" stroke-width="2" fill="none" stroke-linecap="round">
+      <path d="M11.7 5.6C11.7 9 10.3 10 11.7 12s1.3 3 0 6.4"/>
+      <path d="M7.8 9c1.7.6 1.7 2.1 0 2.7"/>
+      <path d="M16.2 9.5c-1.8.6-1.8 2.2 0 2.8"/>
+    </g>
   </g>
 </svg>

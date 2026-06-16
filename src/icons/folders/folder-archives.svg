@@ -1,5 +1,8 @@
 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <rect x="3" y="4.5" width="18" height="5" rx="1.4" fill="#78716C"/>
-  <path fill="#78716C" d="M4.5 10 H19.5 V18 C19.5 18.83 18.83 19.5 18 19.5 H6 C5.17 19.5 4.5 18.83 4.5 18 Z"/>
-  <rect x="9.3" y="12.4" width="5.4" height="1.9" rx="0.95" fill="#D6D3D1"/>
+  <rect x="1" y="1" width="22" height="22" rx="6" fill="#64748B"/>
+  <g transform="translate(4,4) scale(0.667)">
+    <rect x="3" y="4.5" width="18" height="5" rx="1.4" fill="#fff"/>
+    <path fill="#fff" d="M4.5 10.6 H19.5 V18 C19.5 18.83 18.83 19.5 18 19.5 H6 C5.17 19.5 4.5 18.83 4.5 18 Z"/>
+    <rect x="9.3" y="12.6" width="5.4" height="1.9" rx="0.95" fill="#64748B"/>
+  </g>
 </svg>
