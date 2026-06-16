@@ -108,11 +108,18 @@ if settings:
         try:
             cfg = json.loads(strip_jsonc(open(settings).read()))
             assoc = cfg.get("symbols.folders.associations", {})
+            fnames = theme.get("folderNames", {}) if theme else {}
             print(f"✓ settings parsed; checking {len(assoc)} folder associations")
             for folder, icon in assoc.items():
                 if icon not in defs:
                     fails.append((f"association {folder} -> {icon} has no matching icon definition",
                                   "fix the icon name in settings, or add/register the icon"))
+                elif fnames.get(folder) != icon:
+                    # the bug that breaks on a color-theme / settings change: declared
+                    # in settings but not baked into the theme, so a regen drops it.
+                    fails.append((f"{folder} -> {icon} is NOT baked into theme folderNames "
+                                  "(will vanish on the next config change)",
+                                  f"scripts/apply-to-vscode.sh {settings}  + reload"))
         except Exception as e:
             fails.append((f"could not parse settings JSONC: {e}", "check for trailing commas / syntax"))
 
