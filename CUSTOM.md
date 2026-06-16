@@ -6,11 +6,11 @@ tiers, on top of upstream Symbols.
 | Icon name | Glyph | Used for |
 |---|---|---|
 | `folder-brain` | brain (pink) | `00-brain` |
-| `folder-systems` | gear (blue) | `01-systems` |
-| `folder-agents` | robot (green) | `02-agents` |
-| `folder-lab` | flask (amber) | `03-lab` |
-| `folder-notes` | document (sky) | `04-notes` |
-| `folder-archives` | box (slate) | `05-archives` |
+| `folder-systems` | layers (purple) | `01-systems` |
+| `folder-agents` | robot (teal) | `02-agents` |
+| `folder-lab` | flask (green) | `03-lab` |
+| `folder-notes` | notebook (sky) | `04-notes` |
+| `folder-archives` | box (stone) | `05-archives` |
 
 SVGs live in `src/icons/folders/`; registered in `src/symbol-icon-theme.json`.
 
